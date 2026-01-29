@@ -25,29 +25,31 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    async function loadData() {
+      try {
+        setLoading(true);
+        const res = await fetchInsights(filters);
+        setData(res.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
     loadData();
   }, [filters]);
-
-  const loadData = async () => {
-    try {
-      setLoading(true);
-      const res = await fetchInsights(filters);
-      setData(res.data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="dashboard">
       <h1>Visualization Dashboard</h1>
       {loading && <p>Loading...</p>}
       <p>Total Records: {data.length}</p>
+
       <div className="filters-panel-header">
         <FiltersPanel filters={filters} setFilters={setFilters} />
       </div>
+
       <div className="charts">
         <div className="first-line">
           <div className="chart" id="intensity">
@@ -57,11 +59,13 @@ const Dashboard = () => {
             <LikelihoodTrend data={data} />
           </div>
         </div>
+
         <div className="second-line">
           <div className="chart" id="relevance">
             <RelevanceByTopic data={data} />
           </div>
         </div>
+
         <div className="third-line">
           <div className="chart" id="country">
             <CountryDistribution data={data} />
