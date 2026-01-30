@@ -5,7 +5,7 @@ import {
   LinearScale,
   BarElement,
   Tooltip,
-  Legend
+  Legend,
 } from "chart.js";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
@@ -14,16 +14,16 @@ const styles = {
   container: {
     marginTop: "30px",
     padding: "20px",
-    background: "#0f172a",
+    background: "#23594c",
     borderRadius: "12px",
-    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)"
+    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)",
   },
   title: {
     color: "#e5e7eb",
     fontSize: "20px",
     marginBottom: "15px",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 };
 
 const CountryDistribution = ({ data }) => {
@@ -46,15 +46,66 @@ const CountryDistribution = ({ data }) => {
     datasets: [
       {
         label: "Records by Country (Top 10)",
-        data: values
-      }
-    ]
+        data: values,
+        backgroundColor: "rgba(34, 197, 94, 0.7)", // emerald
+        borderColor: "rgba(34, 197, 94, 1)",
+        borderWidth: 1,
+        borderRadius: 8,
+        barThickness: 28,
+        hoverBackgroundColor: "rgba(34, 197, 94, 1)",
+      },
+    ],
   };
 
   return (
     <div style={styles.container}>
       <h3 style={styles.title}>Top Countries</h3>
-      <Bar data={chartData} />
+      <Bar
+        data={chartData}
+        options={{
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: {
+                color: "#e5e7eb",
+                font: {
+                  size: 12,
+                  weight: "bold",
+                },
+              },
+            },
+            tooltip: {
+              titleColor: "#e5e7eb",
+              bodyColor: "#e5e7eb",
+              backgroundColor: "#020617",
+            },
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: "#cbd5f5",
+                font: {
+                  size: 11,
+                },
+              },
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              ticks: {
+                color: "#cbd5f5",
+                font: {
+                  size: 11,
+                },
+              },
+              grid: {
+                color: "rgba(255,255,255,0.08)",
+              },
+            },
+          },
+        }}
+      />
     </div>
   );
 };

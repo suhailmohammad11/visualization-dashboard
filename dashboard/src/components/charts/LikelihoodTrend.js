@@ -6,7 +6,7 @@ import {
   PointElement,
   LineElement,
   Tooltip,
-  Legend
+  Legend,
 } from "chart.js";
 
 ChartJS.register(
@@ -15,7 +15,7 @@ ChartJS.register(
   PointElement,
   LineElement,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const styles = {
@@ -24,14 +24,14 @@ const styles = {
     padding: "20px",
     background: "#0f172a",
     borderRadius: "12px",
-    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)"
+    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)",
   },
   title: {
     color: "#e5e7eb",
     fontSize: "20px",
     marginBottom: "15px",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 };
 
 const LikelihoodTrend = ({ data }) => {
@@ -47,9 +47,7 @@ const LikelihoodTrend = ({ data }) => {
   });
 
   const labels = Object.keys(map).sort();
-  const values = labels.map(
-    (y) => Math.round(map[y].total / map[y].count)
-  );
+  const values = labels.map((y) => Math.round(map[y].total / map[y].count));
 
   const chartData = {
     labels,
@@ -57,17 +55,27 @@ const LikelihoodTrend = ({ data }) => {
       {
         label: "Average Likelihood",
         data: values,
-        tension: 0.3,
-        fill: false
-      }
-    ]
+        borderColor: "#3b82f6",
+        borderWidth: 3,
+        tension: 0.4,
+
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        pointBackgroundColor: "#3b82f6",
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2,
+
+        fill: true,
+        backgroundColor: "rgba(59, 130, 246, 0.15)",
+      },
+    ],
   };
 
   return (
-          <div style={styles.container}>
-              <h3 style={styles.title}>Likelihood Trend by Year</h3>
-                <Line data={chartData} />
-           </div>
+    <div style={styles.container}>
+      <h3 style={styles.title}>Likelihood Trend by Year</h3>
+      <Line data={chartData} />
+    </div>
   );
 };
 

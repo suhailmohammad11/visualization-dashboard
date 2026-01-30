@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchMeta } from "../../api/InsightAPI";
-import "./FiltersPanelStyles.css"
+import "./FiltersPanelStyles.css";
 
 const FiltersPanel = ({ filters, setFilters }) => {
   const [options, setOptions] = useState({
@@ -32,7 +32,7 @@ const FiltersPanel = ({ filters, setFilters }) => {
       ];
 
       const results = await Promise.all(
-        fields.map((field) => fetchMeta(field))
+        fields.map((field) => fetchMeta(field)),
       );
 
       const newOptions = {};
@@ -40,7 +40,7 @@ const FiltersPanel = ({ filters, setFilters }) => {
         newOptions[field] = results[index].data;
       });
 
-      console.log("META OPTIONS:", newOptions); // 👈 add this
+      console.log("META OPTIONS:", newOptions);
 
       setOptions(newOptions);
     } catch (error) {
@@ -53,12 +53,12 @@ const FiltersPanel = ({ filters, setFilters }) => {
 
     setFilters((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const renderSelect = (label, name, values = []) => (
-    <div className="render-select" >
+    <div className="render-select">
       <label>{label}</label>
       <br />
       <select name={name} value={filters[name]} onChange={handleChange}>
@@ -72,19 +72,18 @@ const FiltersPanel = ({ filters, setFilters }) => {
     </div>
   );
 
- return (
-  <div className="filters-panel" >
-    {renderSelect("End Year", "end_year", options.end_year)}
-    {renderSelect("Topic", "topic", options.topic)}
-    {renderSelect("Sector", "sector", options.sector)}
-    {renderSelect("Region", "region", options.region)}
-    {renderSelect("PESTLE", "pestle", options.pestle)}
-    {renderSelect("Source", "source", options.source)}
-    {renderSelect("SWOT", "swot", options.swot)}
-    {renderSelect("Country", "country", options.country)}
-  </div>
-);
-
+  return (
+    <div className="filters-panel">
+      {renderSelect("End Year", "end_year", options.end_year)}
+      {renderSelect("Topic", "topic", options.topic)}
+      {renderSelect("Sector", "sector", options.sector)}
+      {renderSelect("Region", "region", options.region)}
+      {renderSelect("PESTLE", "pestle", options.pestle)}
+      {renderSelect("Source", "source", options.source)}
+      {renderSelect("SWOT", "swot", options.swot)}
+      {renderSelect("Country", "country", options.country)}
+    </div>
+  );
 };
 
 export default FiltersPanel;

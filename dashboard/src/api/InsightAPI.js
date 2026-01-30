@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://visualization-dashboard-eq6z.onrender.com/api"
+  baseURL: "https://visualization-dashboard-eq6z.onrender.com/api",
 });
 
 export const fetchInsights = (filters = {}) => {
